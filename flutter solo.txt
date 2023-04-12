@@ -1,0 +1,231 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(meuApp());
+}
+
+
+String a33 ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT5dWZstFaTC0p2R_bUjJw8pBa6ps5K7gZrA&usqp=CAU';
+int abc =1;
+
+
+
+
+class Task extends StatefulWidget {
+
+  Task(this.nome,this.foto,this.dif);
+
+  final String nome;
+  final String foto;
+  final int dif;
+
+  @override
+  State<Task> createState() => _TaskState();
+}
+
+class _TaskState extends State<Task> {
+
+  int nivel=0;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+            color:Color.fromARGB(255, 0, 0, 0),
+            child:Stack(
+              children:[
+                Container(
+                  height:140,
+                  decoration:BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color:Colors.red,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      height:100,
+                      decoration:BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color:Colors.purple,
+                      ),
+                      child:Row(
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                        children:[
+                          Container(
+                            color:Color.fromARGB(255, 101, 0, 121),
+                            width:90,
+                            height:100,
+                            child:Image.network(
+                              widget.foto,
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment:MainAxisAlignment.center,
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(widget.nome,
+                                style:TextStyle(fontSize:24) ,
+                                overflow:TextOverflow.ellipsis ,
+                                ),
+                                width:200,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size:15,
+                                    color:(widget.dif>=1)?Colors.blue:Colors.blue[100]
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size:15,
+                                    color:(widget.dif>=2)?Colors.blue:Colors.blue[100]
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size:15,
+                                    color:(widget.dif>=3)?Colors.blue:Colors.blue[100]
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    size:15,
+                                    color:(widget.dif>=4)?Colors.blue:Colors.blue[100]
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                  size:15,
+                                  color:(widget.dif>=5)?Colors.blue:Colors.blue[100]
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height:52,
+                            width:52,
+                            child: ElevatedButton(
+                              onPressed:(){
+                                setState((){
+                                  nivel++;
+                                });
+                                print(nivel);
+                              },
+                              child:Column(
+                                mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment:CrossAxisAlignment.end,
+                                children: [
+                                  Icon(Icons.arrow_drop_down,
+                                  color:Color.fromARGB(255, 0, 0, 0)
+                                  ),
+                                  Text('up',
+                                  style:TextStyle(
+                                    fontSize:12 ,
+                                  ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: LinearProgressIndicator(
+                              color:Colors.white,
+                              backgroundColor: Color.fromARGB(255, 255, 159, 159),
+                              value:(widget.dif>0)?(nivel/widget.dif)/10:0,
+                            ),
+                          ),
+                          width:400,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Nivel: $nivel',
+                          style: TextStyle(
+                            color:Colors.white,
+                            fontSize:16,
+                          ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            ),
+    );
+  }
+}
+
+class meuApp extends StatefulWidget{
+  @override
+  State<meuApp> createState() => _meuAppState();
+}
+
+class _meuAppState extends State<meuApp> {
+  int items=1;
+
+  void addItem (){
+    setState((){
+      items++;
+  });
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home:Scaffold(
+        appBar:AppBar(
+          title:Text('aaaaaaaaaaaaaaaa'),
+          leading:Container(
+            color:Color.fromARGB(255, 0, 107, 194),
+          ),
+        ),
+        body:Container(
+          color:Colors.black,
+          child: ListView.builder(
+            /*
+            children:[
+              Task('uni',a33,1),
+              Task('duni',a33,5),
+              Task('té',a33,3),
+              Task('salame',a33,4),
+              Task('min',a33,2),
+              Task('gue',a33,0),
+            ],
+            */
+            itemCount: items,
+            itemBuilder: (BuildContext context, int index) {
+      return Task('sucess',a33,5);
+    }
+          ),
+        ),
+        floatingActionButton:FloatingActionButton(onPressed:(){
+          addItem();
+        }
+        ),
+      ),
+    );
+  }
+}
+
+
+/*Expanded(
+  child: ListView.builder (
+    itemCount: items.length,
+    itemBuilder: (BuildContext context, int index) {
+      return <Widget>;
+    }
+  )
+)*/
+
